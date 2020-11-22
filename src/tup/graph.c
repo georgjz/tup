@@ -494,7 +494,8 @@ static int attach_transient_nodes(struct graph *g)
 				return -1;
 			tent_tree_rm(&g->transient_root, tt);
 		} else {
-			LIST_FOREACH(e, &cmdnode->edges, list) {
+			struct edge *tmpe;
+			LIST_FOREACH_SAFE(e, &cmdnode->edges, list, tmpe) {
 				if(!tup_db_in_transient_list(e->dest->tent->tnode.tupid)) {
 					remove_node_internal(g, e->dest);
 				}
