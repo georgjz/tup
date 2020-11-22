@@ -563,6 +563,14 @@ int build_graph(struct graph *g)
 	if(g->style != TUP_LINK_GROUP)
 		if(add_graph_stickies(g) < 0)
 			return -1;
+	if(!TAILQ_EMPTY(&g->plist)) {
+		struct node *tmpn;
+		fprintf(stderr, "tup internal error: plist should be empty after graph building.\n");
+		TAILQ_FOREACH(tmpn, &g->plist, list) {
+			printf(" - %s\n", tmpn->tent->name.s);
+		}
+		return -1;
+	}
 	return 0;
 }
 
