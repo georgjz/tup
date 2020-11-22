@@ -492,6 +492,10 @@ static int attach_transient_nodes(struct graph *g)
 			g->cur = g->root;
 			if(make_edge(g, cmdnode) < 0)
 				return -1;
+			if(node_remove_list(&g->plist, cmdnode) < 0)
+				return -1;
+			if(node_insert_tail(&g->node_list, cmdnode) < 0)
+				return -1;
 			tent_tree_rm(&g->transient_root, tt);
 		} else {
 			struct edge *tmpe;
